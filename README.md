@@ -1,6 +1,7 @@
+# check-internet-android
+
 [![](https://jitpack.io/v/raheemadamboev/check-internet-android.svg)](https://jitpack.io/#raheemadamboev/check-internet-android)
 
-# check-internet-android
 Light library to check internet connection in android apps easily. It checks real internet connection by connecting to Google's DNS server. If call is successful then internet is working else not working.
 
 ## How To use
