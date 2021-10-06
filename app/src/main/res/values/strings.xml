@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CheckInternetDemo</string>
+
+    <string name="check_internet">Check internet</string>
+    <string name="no_internet">Internet NOT working</string>
+    <string name="internet">Internet working</string>
 </resources>
