@@ -18,7 +18,7 @@ allprojects {
 
 Include below dependency in build.gradle of application and sync it:
 ```groovy
-implementation 'com.github.raheemadamboev:check-internet-android:1.1'
+implementation 'com.github.raheemadamboev:check-internet-android:1.1.1'
 ```
 
 **Check internet connection (callback API):**
