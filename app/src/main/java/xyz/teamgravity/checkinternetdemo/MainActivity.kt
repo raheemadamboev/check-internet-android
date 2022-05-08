@@ -2,6 +2,8 @@ package xyz.teamgravity.checkinternetdemo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import xyz.teamgravity.checkinternet.CheckInternet
 import xyz.teamgravity.checkinternetdemo.databinding.ActivityMainBinding
 
@@ -18,12 +20,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun button() {
-        onCheck()
+        onCheckCallback()
+        onCheckSuspend()
     }
 
-    private fun onCheck() {
+    private fun onCheckCallback() {
         binding.apply {
-            checkB.setOnClickListener {
+            checkCallbackB.setOnClickListener {
 
                 stateT.text = getString(R.string.checking)
 
@@ -33,6 +36,18 @@ class MainActivity : AppCompatActivity() {
                     } else { // there is no internet
                         stateT.text = getString(R.string.no_internet)
                     }
+                }
+            }
+        }
+    }
+
+    private fun onCheckSuspend() {
+        binding.apply {
+            checkSuspendB.setOnClickListener {
+                lifecycleScope.launch {
+                    stateT.text = getString(R.string.checking)
+                    val connected = CheckInternet().check()
+                    stateT.text = getString(if (connected) R.string.internet else R.string.no_internet)
                 }
             }
         }

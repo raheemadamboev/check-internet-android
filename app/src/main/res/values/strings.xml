@@ -2,6 +2,8 @@
     <string name="app_name">CheckInternetDemo</string>
 
     <string name="check_internet">Check internet</string>
+    <string name="check_internet_callback">Check internet (callback)</string>
+    <string name="check_internet_suspend">Check internet (suspend)</string>
     <string name="checking">Checking…</string>
     <string name="no_internet">Internet NOT working</string>
     <string name="internet">Internet working</string>
