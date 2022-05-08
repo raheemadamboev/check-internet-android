@@ -7,8 +7,6 @@ import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Socket
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 class CheckInternet {
 
@@ -21,9 +19,7 @@ class CheckInternet {
     fun check(listener: (connected: Boolean) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
             try {
-                val socket = Socket()
-                socket.connect(InetSocketAddress(HOST_NAME, PORT), TIMEOUT)
-                socket.close()
+                Socket().use { it.connect(InetSocketAddress(HOST_NAME, PORT), TIMEOUT) }
                 withContext(Dispatchers.Main) {
                     listener(true)
                 }
@@ -36,16 +32,12 @@ class CheckInternet {
     }
 
     suspend fun check(): Boolean {
-        return suspendCoroutine { continuation ->
-            CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
-                try {
-                    val socket = Socket()
-                    socket.connect(InetSocketAddress(HOST_NAME, PORT), TIMEOUT)
-                    socket.close()
-                    continuation.resume(true)
-                } catch (e: IOException) {
-                    continuation.resume(false)
-                }
+        return withContext(Dispatchers.IO) {
+            try {
+                Socket().use { it.connect(InetSocketAddress(HOST_NAME, PORT), TIMEOUT) }
+                return@withContext true
+            } catch (e: IOException) {
+                return@withContext false
             }
         }
     }
