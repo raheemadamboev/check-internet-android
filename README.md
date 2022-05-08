@@ -21,7 +21,7 @@ Include below dependency in build.gradle of application and sync it:
 implementation 'com.github.raheemadamboev:check-internet-android:1.1'
 ```
 
-**Check internet connection:**
+**Check internet connection (callback API):**
 ```kotlin
 CheckInternet().check { connected ->
   if (connected) { 
@@ -31,6 +31,19 @@ CheckInternet().check { connected ->
   }
 }
 ```
+
+**Check internet connection (suspend API):**
+```kotlin
+viewmodelScope.launch {
+  val connected = CheckInternet().check()
+  if (connected) { 
+      // there is internet                
+  } else { 
+      // there is no internet                  
+  }
+}
+```
+
 ## Demo application
 
 Checked internet connection via wifi and mobile network. <a href="https://github.com/raheemadamboev/check-internet-android/blob/master/app-debug.apk">Download demo</a>
