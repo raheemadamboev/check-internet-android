@@ -34,7 +34,7 @@ CheckInternet().check { connected ->
 
 **Check internet connection (suspend API):**
 ```kotlin
-viewmodelScope.launch {
+viewModelScope.launch {
   val connected = CheckInternet().check()
   if (connected) { 
       // there is internet                
