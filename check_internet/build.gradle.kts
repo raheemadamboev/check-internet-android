@@ -41,6 +41,9 @@ android {
 
 dependencies {
 
+    // annotation
+    implementation(libs.annotation)
+
     // coroutines
     implementation(libs.coroutines)
     implementation(libs.coroutines.android)

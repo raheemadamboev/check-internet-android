@@ -7,4 +7,5 @@
     <string name="checking">Checking…</string>
     <string name="no_internet">Internet NOT working</string>
     <string name="internet">Internet working</string>
+    <string name="your_observing_internet">Result from observing your internet: %1$s</string>
 </resources>
