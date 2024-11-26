@@ -24,7 +24,7 @@ dependencyResolutionManagement {
 }
 ```
 
-Install the library to the project in desired module's `build.gradle.kts` file. Replace <current_version> with the actual version:
+Install the library to the project in desired module's `build.gradle.kts` file. Replace `<current_version>` with the actual version:
 ```kotlin
 implementation("com.github.raheemadamboev:check-internet-android:<current_version>")
 ```
