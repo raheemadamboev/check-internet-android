@@ -8,30 +8,32 @@
 </p>
 
 <p align="center">
-🌐 Light library to check internet connection in android apps easily. It checks real internet connection by connecting to Google's DNS server. If call is successful then internet is working else not working.
+🌐 CheckInternetAndroid is a light library to check or observe internet connection in android apps easily. It checks the real internet connection by connecting to the Google's DNS server. If call is successful, then the internet is working, else it is not working.
 </p>
 
 # Setup
 
-Add it in your root **build.gradle** at the end of repositories:
-```groovy
-allprojects {
+Add the maven library bucket to the `dependencyResolutionManagement.repositories` block in `settings.gradle.kts` file as follows:
+```kotlin
+dependencyResolutionManagement {
+  ...
   repositories {
-    maven { url 'https://jitpack.io' }
+    ...
+    maven("https://jitpack.io")
   }
 }
 ```
 
-Include below dependency in build.gradle of application and sync it:
-```groovy
-implementation 'com.github.raheemadamboev:check-internet-android:1.1.1'
+Install the library to the project in desired module's `build.gradle.kts` file. Replace <current_version> with the actual version:
+```kotlin
+implementation("com.github.raheemadamboev:check-internet-android:<current_version>")
 ```
 
 # Implementation
 
 **Check internet connection (callback API):**
 ```kotlin
-CheckInternet().check { connected ->
+CheckInternet(applicationContext).check { connected ->
   if (connected) { 
       // there is internet                
   } else { 
@@ -43,7 +45,7 @@ CheckInternet().check { connected ->
 **Check internet connection (suspend API):**
 ```kotlin
 viewModelScope.launch {
-  val connected = CheckInternet().check()
+  val connected = CheckInternet(applicationContext).check()
   if (connected) { 
       // there is internet                
   } else { 
@@ -52,19 +54,53 @@ viewModelScope.launch {
 }
 ```
 
+**Observe internet status (StateFlow)**
+```kotlin
+
+private val internet: CheckInternet by lazy { CheckInternet(applicationContext) }
+
+override fun onResume() {
+  super.onResume()
+  internet.startObservingConnection()
+}
+
+override fun onPause() {
+  super.onPause()
+  internet.stopObservingConnection()
+}
+
+lifecycleScope.launch {
+  internet.status.collectLatest { status ->
+    when(status) {
+      Initial -> {
+        // initial state, internet is not being observed, should call startObservingConnection()
+      }
+
+      Connected -> {
+        // there is internet
+      }
+
+      NotConnected -> {
+        // there is no internet
+      }
+    }
+  }
+}
+```
+
 # Demo
 
-Checked internet connection via wifi and mobile network. <a href="https://github.com/raheemadamboev/check-internet-android/blob/master/app-debug.apk">Download demo</a>
+Checked internet connection via wifi and mobile network. <a href="https://github.com/raheemadamboev/check-internet-android/blob/master/extra/app-debug.apk">Download demo</a>
 
-<img src="https://github.com/raheemadamboev/check-internet-android/blob/master/demo-check-internet.gif" alt="Italian Trulli" width="200" height="400">
+<img src="https://github.com/raheemadamboev/check-internet-android/blob/master/extra/banner.gif" width="200" height="400">
 
 # Projects using this library
 
-**GoTest** 150 000+ downloads in <a href="https://play.google.com/store/apps/details?id=xyz.teamgravity.gotest">Google Play Store</a>
+**GoTest** 250 000+ downloads in <a href="https://play.google.com/store/apps/details?id=xyz.teamgravity.gotest">Google Play Store</a>
 
-**Buxgalteriya schyotlar rejasi** 20 000+ downloads in <a href="https://play.google.com/store/apps/details?id=xyz.teamgravity.uzbekistanaccountingcode">Google Play Store</a>
+**Buxgalteriya schyotlar rejasi** 50 000+ downloads in <a href="https://play.google.com/store/apps/details?id=xyz.teamgravity.uzbekistanaccountingcode">Google Play Store</a>
 
-**Irregular Verbs**  20 000+ downloads in <a href="https://play.google.com/store/apps/details?id=xyz.teamgravity.irregularverbs">Google Play Store</a>
+**Irregular Verbs**  25 000+ downloads in <a href="https://play.google.com/store/apps/details?id=xyz.teamgravity.irregularverbs">Google Play Store</a>
 
 # License
 
