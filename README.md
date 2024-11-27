@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-🌐 CheckInternetAndroid is a light library to check or observe internet connection in android apps easily. It checks the real internet connection by connecting to the Google's DNS server. If call is successful, then the internet is working, else it is not working.
+🌐 <b>CheckInternetAndroid</b> is a light library to check or observe internet connection in android apps easily. It checks the real internet connection by connecting to the Google's DNS server. If call is successful, then the internet is working, else it is not working.
 </p>
 
 # Setup
