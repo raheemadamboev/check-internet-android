@@ -49,6 +49,7 @@ dependencies {
 
     // check internet
     implementation(projects.checkInternet)
+//    implementation("com.github.raheemadamboev:check-internet-android:1.1.3")
 
     // core
     implementation(libs.core)
