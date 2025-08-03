@@ -47,7 +47,7 @@ class CheckInternet(
         }
     }
 
-    private fun log(message: String) {
+    private fun logError(message: String) {
         Log.e(TAG, message)
     }
 
@@ -57,7 +57,7 @@ class CheckInternet(
 
             val manager = manager
             if (manager == null) {
-                log("onAvailable(): ConnectivityManager is null! Aborted the operation.")
+                logError("onAvailable(): ConnectivityManager is null! Aborted the operation.")
                 return
             }
 
@@ -98,7 +98,7 @@ class CheckInternet(
     fun startObservingConnection() {
         val manager = manager
         if (manager == null) {
-            log("startObservingConnection(): ConnectivityManager is null! Aborted the operation.")
+            logError("startObservingConnection(): ConnectivityManager is null! Aborted the operation.")
             return
         }
 
@@ -113,7 +113,7 @@ class CheckInternet(
     fun stopObservingConnection() {
         val manager = manager
         if (manager == null) {
-            log("stopObservingConnection(): ConnectivityManager is null! Aborted the operation.")
+            logError("stopObservingConnection(): ConnectivityManager is null! Aborted the operation.")
             return
         }
 

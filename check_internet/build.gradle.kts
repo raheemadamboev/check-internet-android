@@ -1,7 +1,9 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.library)
     alias(libs.plugins.kotlin)
-    `maven-publish`
+    id("maven-publish")
 }
 
 android {
@@ -21,8 +23,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = libs.versions.java.target.get()
+    kotlin {
+        target {
+            compilerOptions {
+                jvmTarget = JvmTarget.JVM_17
+            }
+        }
     }
 
     packaging {
@@ -53,11 +59,13 @@ afterEvaluate {
     publishing {
         publications {
             register<MavenPublication>("release") {
-                from(components["release"])
-
                 groupId = "com.github.raheemadamboev"
                 artifactId = "check-internet-android"
-                version = "1.1.2"
+                version = "1.1.3"
+
+                afterEvaluate {
+                    from(components["release"])
+                }
             }
         }
     }
